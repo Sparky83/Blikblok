@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/GameScreen.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/block.png" type="Texture" id=2]
 [ext_resource path="res://Prefabs/Block.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Backgrounds/background_01.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Score.gd" type="Script" id=5]
 
 [node name="GameScreen" type="Node2D"]
 script = ExtResource( 1 )
@@ -133,9 +134,6 @@ offset = Vector2( 16, 16 )
 
 [node name="BorderRight" type="Node2D" parent="Borders"]
 position = Vector2( 352, -32 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="block" type="Sprite" parent="Borders/BorderRight"]
 modulate = Color( 0.2, 0.2, 0.2, 1 )
@@ -358,3 +356,28 @@ position = Vector2( 267.468, 0 )
 
 [node name="NewBlockPos" type="Node2D" parent="."]
 position = Vector2( 560, 48 )
+
+[node name="Score" type="Label" parent="."]
+margin_left = 911.242
+margin_top = 103.079
+margin_right = 960.242
+margin_bottom = 122.079
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Score:"
+percent_visible = -0.166667
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Score"]
+margin_left = 61.0
+margin_right = 103.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "0"
+align = 2
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

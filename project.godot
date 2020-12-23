@@ -17,7 +17,7 @@ _global_script_class_icons={
 
 config/name="Tetris"
 config/description="Dies ist ein Übungsprojekt. Ich versuche die Dinge für mich traditionell anzugehen, also übliche Datenstrukturen zu verwenden und nur die grundlegenden Engine-Features wie Rendering und Loop-Mechanik zu nutzen."
-run/main_scene="res://Screens/GameScreen.tscn"
+run/main_scene="res://Screens/startScreen.tscn"
 config/icon="res://icon2.png"
 
 [display]

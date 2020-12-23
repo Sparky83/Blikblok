@@ -43,13 +43,15 @@ func checkLines():
 	var refresh = false
 	var height = bitmap.get_size().y
 	var y = height-1
+	var lineCount = 0
 	while y >= 0:
 		if isLineComplete(y):
 			lowerUpperField(y-1,1)
 			y += 1
+			lineCount += 1
 			refresh = true
 		y -= 1
-	return refresh
+	return lineCount
 		
 func isLineComplete(lineNum):
 	var width = 10
@@ -70,6 +72,7 @@ func lowerUpperField(start, amount):
 		copyFieldLine(y, y+amount)
 		y -= 1
 	
+# returns number of removed lines if lines were completed
 func putBlock(block):
 	var type = block.getCurrType()
 	var blockArray = BLOCKS.getBlock(type)[block.getCurrRotation()]
@@ -78,4 +81,5 @@ func putBlock(block):
 		for x in 4:
 			if(blockArray[y*4+x] != 0):
 				setCell(offset.x + x, offset.y + y, type)
-	checkLines()
+	return checkLines()
+		

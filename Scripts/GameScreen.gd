@@ -8,6 +8,7 @@ const DELAYER = preload("InputDelayer.gd")
 
 var field
 var block
+var scoreNode
 
 var fieldOrigin
 var blockTypes
@@ -22,8 +23,10 @@ var moveTime = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	field = FIELD.new()
 	block = BLOCKS.new()
+	scoreNode = get_node("Score/Label")
 	
 	fieldOrigin = get_node("FieldOrigin")
 	initBlockTypes()
@@ -69,7 +72,11 @@ func _process(delta):
 			refreshCurrBlockView("rotation")
 	if state == STATES.PLACEMENT:
 		# collision... put block in?
-		field.putBlock(block)
+		var lines = field.putBlock(block)
+		if lines > 0:
+			var mult = pow(2,lines) - 1
+			scoreNode.addPoints(mult * 100)
+			
 		refreshFieldView()
 		var children = get_node("currBlock").get_children()
 		for i in children.size():
