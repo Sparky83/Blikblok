@@ -365,7 +365,6 @@ margin_bottom = 122.079
 rect_scale = Vector2( 2, 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Score:"
-percent_visible = -0.166667
 __meta__ = {
 "_edit_use_anchors_": false
 }
