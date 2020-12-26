@@ -56,11 +56,13 @@ func _process(delta):
 			else: if rightDelay.is_currently_pressed(delta):
 				moveBlockSide("right")
 			else: if Input.is_action_just_pressed("ui_rotate"):
+				$rotateSound.play()
 				block.rotateForward()
 				if(field.checkBlockCollision(block)):
 					block.rotateBack()
 				else: refreshCurrBlockView("rotation")
 			else: if Input.is_action_just_pressed("ui_rotate_alt"):
+				$rotateSound.play()
 				block.rotateBack()
 				if(field.checkBlockCollision(block)):
 					block.rotateForward()
@@ -69,9 +71,11 @@ func _process(delta):
 			downDelay.requestReactivation()
 			block.setPosition(4,-2)
 			block.generate()
+			showPreviewBlock()
 			refreshCurrBlockView("rotation")
 	if state == STATES.PLACEMENT:
 		# collision... put block in?
+		$placementSound.play()
 		var lines = field.putBlock(block)
 		if lines > 0:
 			var mult = pow(2,lines) - 1
@@ -121,6 +125,25 @@ func refreshCurrBlockView(mode):
 		currBlockNode.position = Vector2(fieldOrigin.position.x + blockPos.x * 32,
 										fieldOrigin.position.y + blockPos.y * 32)
 		var blockPattern = BLOCKS.getBlock(block.getCurrType())[block.getCurrRotation()]
+		for y in 4:
+			for x in 4:
+				var type = blockPattern[4*y + x]
+				if(type != 0):
+					blockNodes[index].position = Vector2(x*32,y*32)
+					index += 1
+
+func showPreviewBlock():
+		var previewNode = $preview
+		var children = previewNode.get_children()
+		for i in children.size():
+			children[i].free()
+			
+		var prototypeBlock = blockTypes[block.getPreviewType()]
+		for i in 4:
+			previewNode.add_child(prototypeBlock.duplicate(0))
+		var blockNodes = $preview.get_children()
+		var index = 0
+		var blockPattern = BLOCKS.getBlock(block.getPreviewType())[0]
 		for y in 4:
 			for x in 4:
 				var type = blockPattern[4*y + x]

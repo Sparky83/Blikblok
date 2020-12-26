@@ -12,6 +12,7 @@ enum {
 
 var blockPos
 var currType = 0
+var previewType = 0
 var currRotation = 0
 
 static func getBlock(type):
@@ -59,6 +60,12 @@ func getCurrType():
 	
 func setCurrType(type):
 	currType = type
+
+func getPreviewType():
+	return previewType
+	
+func setPreviewType(type):
+	previewType = type
 	
 func getCurrRotation():
 	return currRotation
@@ -88,7 +95,10 @@ func generate():
 	currRotation = 0
 	var randGen = RandomNumberGenerator.new()
 	randGen.randomize()
-	currType = randGen.randi_range(1,7)
+	currType = previewType
+	previewType = randGen.randi_range(1,7)
+	if(currType == NONE):
+		generate()
 	return currType
 	
 	
