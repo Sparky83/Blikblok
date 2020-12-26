@@ -18,6 +18,7 @@ var state = STATES.FALLING
 var downDelay
 var leftDelay
 var rightDelay
+var lastPosition = Vector2(0,0)
 
 var moveTime = 0
 
@@ -92,16 +93,20 @@ func moveBlockDown():
 	moveTime = 0
 	block.moveDown()
 	if field.checkBlockCollision(block):
-		block.translate(0,-1)
+		block.translate2(0,-1)
 		state = STATES.PLACEMENT
+		
+		if lastPosition == block.getPosition():	
+			get_tree().change_scene("res://Screens/StartScreen.tscn")
+		lastPosition = block.getPosition()
 	refreshCurrBlockView("position")
 		
 func moveBlockSide(side):
 	var oldPos = block.getPosition()
 	if side == "left": 
-		block.translate(-1, 0)
+		block.translate2(-1, 0)
 	else: if side == "right":
-		block.translate(1, 0)
+		block.translate2(1, 0)
 	if(field.checkBlockCollision(block)):
 		block.setPosition(oldPos.x, oldPos.y)
 	refreshCurrBlockView("position")

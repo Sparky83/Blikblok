@@ -85,11 +85,11 @@ func getPosition():
 func setPosition(x, y):
 	blockPos = Vector2(x,y)
 	
-func translate(x, y):
+func translate2(x, y):
 	blockPos = blockPos + Vector2(x,y)
 	
 func moveDown():
-	translate(0,1)
+	translate2(0,1)
 
 func generate():
 	currRotation = 0
