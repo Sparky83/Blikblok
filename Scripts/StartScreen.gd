@@ -14,7 +14,8 @@ func _ready():
 
 	
 func startGame():
-	get_tree().change_scene("res://Screens/GameScreen.tscn")
+	if !get_tree().change_scene("res://Screens/GameScreen.tscn"):
+		print("Error changing scenes")
 
 func mouseOverButton(entered, button):
 	var elem = null

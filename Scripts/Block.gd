@@ -12,8 +12,7 @@ func _ready():
 	pass # Replace with function body.
 
 func playAnim():
-	animPlayer.current_animation_position = 0
-	animPlayer.play()
+	animPlayer.play("fadeout")
 	
 
 
@@ -24,3 +23,4 @@ func playAnim():
 
 func _onAnimFinished(anim_name):
 	self.queue_free()
+

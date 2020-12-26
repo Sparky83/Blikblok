@@ -10,6 +10,7 @@ var field
 var block
 var scoreNode
 
+var animOrigin
 var fieldOrigin
 var blockTypes
 
@@ -30,6 +31,7 @@ func _ready():
 	scoreNode = get_node("Score/Label")
 	
 	fieldOrigin = get_node("FieldOrigin")
+	animOrigin = $AnimOrigin
 	initBlockTypes()
 	#initDebug()
 	clearFieldView()
@@ -77,10 +79,12 @@ func _process(delta):
 	if state == STATES.PLACEMENT:
 		# collision... put block in?
 		$placementSound.play()
-		var lines = field.putBlock(block)
+		var lineArr = field.putBlock(block)
+		var lines = lineArr.size()
 		if lines > 0:
 			var mult = pow(2,lines) - 1
 			scoreNode.addPoints(mult * 100)
+		animateRemovedLines(lineArr)
 			
 		refreshFieldView()
 		var children = get_node("currBlock").get_children()
@@ -95,7 +99,6 @@ func moveBlockDown():
 	if field.checkBlockCollision(block):
 		block.translate2(0,-1)
 		state = STATES.PLACEMENT
-		
 		if lastPosition == block.getPosition():	
 			get_tree().change_scene("res://Screens/StartScreen.tscn")
 		lastPosition = block.getPosition()
@@ -171,6 +174,17 @@ func clearFieldView():
 	var childCount = fieldOrigin.get_child_count()
 	for i in range(childCount):
 		fieldOrigin.get_child(i).queue_free()
+		
+func animateRemovedLines(lineArr):
+	for line in lineArr:
+		for x in 10:
+			var type = field.getCell(x,line)
+			var block = load("res://Prefabs/Block.tscn").instance()
+			var color = Color(BLOCKS.COLORS[type])
+			block.set("visibility/modulate", color)
+			block.position = Vector2(x*32,line*32)
+			$AnimOrigin.add_child(block)
+			block.playAnim()
 
 func initBlockTypes():
 	blockTypes = [self.get_node("BlockTypes/Type1")]

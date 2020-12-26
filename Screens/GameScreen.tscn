@@ -18,6 +18,9 @@ centered = false
 [node name="FieldOrigin" type="Node2D" parent="."]
 position = Vector2( 432, 80 )
 
+[node name="AnimOrigin" type="Node2D" parent="."]
+position = Vector2( 432, 80 )
+
 [node name="Borders" type="Node2D" parent="."]
 
 [node name="BorderLeft" type="Node2D" parent="Borders"]

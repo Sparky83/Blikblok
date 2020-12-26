@@ -43,15 +43,15 @@ func checkLines():
 	var refresh = false
 	var height = bitmap.get_size().y
 	var y = height-1
-	var lineCount = 0
+	var lineArr = []
 	while y >= 0:
 		if isLineComplete(y):
+			lineArr.append(y)
 			lowerUpperField(y-1,1)
 			y += 1
-			lineCount += 1
 			refresh = true
 		y -= 1
-	return lineCount
+	return lineArr
 		
 func isLineComplete(lineNum):
 	var width = 10

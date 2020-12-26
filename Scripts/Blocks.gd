@@ -10,6 +10,7 @@ enum {
 	TRIANGLE
 }
 
+const COLORS = ["ffffff","d12020","2038d1","20d15d","d1c220","d16f20","d120ce","20a8d1"]
 var blockPos
 var currType = 0
 var previewType = 0
