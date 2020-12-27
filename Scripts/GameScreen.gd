@@ -84,7 +84,7 @@ func _process(delta):
 		if lines > 0:
 			var mult = pow(2,lines) - 1
 			scoreNode.addPoints(mult * 100)
-		animateRemovedLines(lineArr)
+			animateRemovedLines(lineArr)
 			
 		refreshFieldView()
 		var children = get_node("currBlock").get_children()
@@ -179,9 +179,7 @@ func animateRemovedLines(lineArr):
 	for line in lineArr:
 		for x in 10:
 			var type = field.getCell(x,line)
-			var block = load("res://Prefabs/Block.tscn").instance()
-			var color = Color(BLOCKS.COLORS[type])
-			block.set("visibility/modulate", color)
+			var block = blockTypes[type].duplicate(12)
 			block.position = Vector2(x*32,line*32)
 			$AnimOrigin.add_child(block)
 			block.playAnim()
