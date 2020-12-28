@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/GameScreen.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/block.png" type="Texture" id=2]
+[ext_resource path="res://Sounds/4lines.wav" type="AudioStream" id=2]
 [ext_resource path="res://Prefabs/Block.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Backgrounds/background_01.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Score.gd" type="Script" id=5]
 [ext_resource path="res://Sounds/placement.wav" type="AudioStream" id=6]
 [ext_resource path="res://Sounds/rotation.wav" type="AudioStream" id=7]
+[ext_resource path="res://Prefabs/Field.tscn" type="PackedScene" id=8]
 
 [node name="GameScreen" type="Node2D"]
 script = ExtResource( 1 )
@@ -15,317 +16,11 @@ script = ExtResource( 1 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="FieldOrigin" type="Node2D" parent="."]
+[node name="Field" parent="." instance=ExtResource( 8 )]
 position = Vector2( 432, 80 )
 
 [node name="AnimOrigin" type="Node2D" parent="."]
 position = Vector2( 432, 80 )
-
-[node name="Borders" type="Node2D" parent="."]
-
-[node name="BorderLeft" type="Node2D" parent="Borders"]
-position = Vector2( 0, -32 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="block" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 656 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block2" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 624 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block3" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 592 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block4" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 496 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block7" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 464 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block8" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 432 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block9" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 400 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block10" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 368 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block11" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 336 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block12" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 304 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block13" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 272 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block14" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 240 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block15" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 208 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block16" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 176 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block17" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 144 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block18" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 112 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block5" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 560 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block6" type="Sprite" parent="Borders/BorderLeft"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 528 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="BorderRight" type="Node2D" parent="Borders"]
-position = Vector2( 352, -32 )
-
-[node name="block" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 656 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block2" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 624 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block3" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 592 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block4" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 496 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block7" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 464 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block8" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 432 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block9" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 400 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block10" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 368 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block11" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 336 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block12" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 304 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block13" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 272 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block14" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 240 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block15" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 208 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block16" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 176 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block17" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 144 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block18" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 112 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block5" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 560 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block6" type="Sprite" parent="Borders/BorderRight"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 528 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="BorderBottom" type="Node2D" parent="Borders"]
-position = Vector2( 1088, 256 )
-rotation = 1.5708
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="block" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 656 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block2" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 624 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block3" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 592 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block4" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 496 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block7" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 464 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block8" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 432 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block9" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 400 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block10" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 368 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block11" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 336 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block12" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 304 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block5" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 560 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
-
-[node name="block6" type="Sprite" parent="Borders/BorderBottom"]
-modulate = Color( 0.2, 0.2, 0.2, 1 )
-position = Vector2( 400, 528 )
-texture = ExtResource( 2 )
-offset = Vector2( 16, 16 )
 
 [node name="BlockTypes" type="Node2D" parent="."]
 position = Vector2( 164.532, 849.253 )
@@ -373,6 +68,10 @@ stream = ExtResource( 6 )
 position = Vector2( 160, 16 )
 stream = ExtResource( 7 )
 attenuation = 0.757858
+
+[node name="quadLineSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 160, 16 )
+stream = ExtResource( 2 )
 
 [node name="Score" type="Label" parent="."]
 margin_left = 911.242

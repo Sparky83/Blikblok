@@ -1,6 +1,6 @@
 extends Node2D
 
-enum STATES {FALLING, PLACEMENT}
+enum STATES {FALLING, PLACEMENT, REMOVAL}
 const SPEEDS = [2000, 1500, 1200, 1000, 800, 600, 400, 300, 200, 100]
 const BLOCKS = preload("Blocks.gd")
 const FIELD = preload("Field.gd")
@@ -20,22 +20,23 @@ var downDelay
 var leftDelay
 var rightDelay
 var lastPosition = Vector2(0,0)
+var samePositionCounter = 0
 
 var moveTime = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	field = FIELD.new()
+	field = $Field
 	block = BLOCKS.new()
 	scoreNode = get_node("Score/Label")
 	
-	fieldOrigin = get_node("FieldOrigin")
+	fieldOrigin = get_node("Field")
 	animOrigin = $AnimOrigin
 	initBlockTypes()
 	#initDebug()
-	clearFieldView()
-	refreshFieldView()
+	field.clearView()
+	field.refreshView()
 	downDelay = DELAYER.new()
 	downDelay.init("ui_down", 400, 50)
 	leftDelay = DELAYER.new()
@@ -60,15 +61,15 @@ func _process(delta):
 				moveBlockSide("right")
 			else: if Input.is_action_just_pressed("ui_rotate"):
 				$rotateSound.play()
-				block.rotateForward()
-				if(field.checkBlockCollision(block)):
-					block.rotateBack()
-				else: refreshCurrBlockView("rotation")
-			else: if Input.is_action_just_pressed("ui_rotate_alt"):
-				$rotateSound.play()
 				block.rotateBack()
 				if(field.checkBlockCollision(block)):
 					block.rotateForward()
+				else: refreshCurrBlockView("rotation")
+			else: if Input.is_action_just_pressed("ui_rotate_alt"):
+				$rotateSound.play()
+				block.rotateForward()
+				if(field.checkBlockCollision(block)):
+					block.rotateBack()
 				else: refreshCurrBlockView("rotation")
 		else: # No block there, do animations
 			downDelay.requestReactivation()
@@ -77,21 +78,31 @@ func _process(delta):
 			showPreviewBlock()
 			refreshCurrBlockView("rotation")
 	if state == STATES.PLACEMENT:
-		# collision... put block in?
 		$placementSound.play()
-		var lineArr = field.putBlock(block)
-		var lines = lineArr.size()
-		if lines > 0:
-			var mult = pow(2,lines) - 1
-			scoreNode.addPoints(mult * 100)
-			animateRemovedLines(lineArr)
-			
-		refreshFieldView()
+		# put Block
+		field.putBlock(block)
+		field.refreshView()
+		# clear current Block view
 		var children = get_node("currBlock").get_children()
 		for i in children.size():
 			children[i].queue_free()
+		# clear current Block data
 		block.setCurrType(BLOCKS.NONE)
+		# check if lines complete
+		var lineArr = field.checkLines()
+		var lines = lineArr.size()
 		state = STATES.FALLING
+		if lines > 0:
+			if(lines == 4):
+				$quadLineSound.play()
+			var mult = pow(2,lines) - 1
+			scoreNode.addPoints(mult * 100)
+			state = STATES.REMOVAL
+	if state == STATES.REMOVAL:
+		if field.isExplosionFinished():
+			field.refreshView()
+			state = STATES.FALLING
+		pass
 			
 func moveBlockDown():
 	moveTime = 0
@@ -100,8 +111,13 @@ func moveBlockDown():
 		block.translate2(0,-1)
 		state = STATES.PLACEMENT
 		if lastPosition == block.getPosition():	
-			get_tree().change_scene("res://Screens/StartScreen.tscn")
+			samePositionCounter += 1
+			if(samePositionCounter >= 4):
+				samePositionCounter = 0
+				get_tree().change_scene("res://Screens/StartScreen.tscn")
 		lastPosition = block.getPosition()
+	else:
+		samePositionCounter = 0
 	refreshCurrBlockView("position")
 		
 func moveBlockSide(side):
@@ -158,31 +174,6 @@ func showPreviewBlock():
 				if(type != 0):
 					blockNodes[index].position = Vector2(x*32,y*32)
 					index += 1
-
-func refreshFieldView():
-	clearFieldView()
-	for y in range(18):
-		for x in range(10):
-			var type = field.getCell(x,y)
-			if type != 0:
-				var child = blockTypes[type].duplicate(0)
-				child.name = "block_" + str(x) + "_" + str(y)
-				child.position = Vector2(x*32, y*32)
-				fieldOrigin.add_child(child)
-				
-func clearFieldView():
-	var childCount = fieldOrigin.get_child_count()
-	for i in range(childCount):
-		fieldOrigin.get_child(i).queue_free()
-		
-func animateRemovedLines(lineArr):
-	for line in lineArr:
-		for x in 10:
-			var type = field.getCell(x,line)
-			var block = blockTypes[type].duplicate(12)
-			block.position = Vector2(x*32,line*32)
-			$AnimOrigin.add_child(block)
-			block.playAnim()
 
 func initBlockTypes():
 	blockTypes = [self.get_node("BlockTypes/Type1")]
