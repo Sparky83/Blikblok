@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Backgrounds/startScreen.png" type="Texture" id=1]
 [ext_resource path="res://Fonts/Conviction_42.tres" type="DynamicFont" id=2]
@@ -8,8 +8,86 @@
 [ext_resource path="res://Sprites/pressAnyButton.png" type="Texture" id=6]
 [ext_resource path="res://Music/A Journey Awaits.ogg" type="AudioStream" id=7]
 
-[sub_resource type="Animation" id=1]
-resource_name = "PressAnyButtonAnim"
+[sub_resource type="GDScript" id=5]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+func _on_gui_input(event):
+	if event.get_class() == \"InputEventMouseButton\":
+		if(event.button_index == 1 && !event.pressed):
+			get_tree().change_scene(\"res://Screens/GameScreen.tscn\")
+	pass # Replace with function body. 
+"
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+func _on_gui_input(event):
+	if event.get_class() == \"InputEventMouseButton\":
+		if(event.button_index == 1 && !event.pressed):
+			get_tree().change_scene(\"res://Screens/HighscoreScreen.tscn\")
+	pass # Replace with function body. 
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+func _on_gui_input(event):
+	if event.get_class() == \"InputEventMouseButton\":
+		if(event.button_index == 1 && !event.pressed):
+			Global.saveScores()
+			get_tree().quit()
+	pass # Replace with function body. 
+"
+
+[sub_resource type="Animation" id=3]
+resource_name = "Show"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 103 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 384, 20 ), Vector2( 384, 226 ) ]
+}
+
+[sub_resource type="Animation" id=4]
 length = 2.0
 loop = true
 tracks/0/type = "bezier"
@@ -76,8 +154,10 @@ __meta__ = {
 }
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Startmenu"]
+margin_top = 103.0
 margin_right = 384.0
-margin_bottom = 226.0
+margin_bottom = 123.0
+rect_clip_content = true
 texture = ExtResource( 4 )
 patch_margin_left = 10
 patch_margin_top = 10
@@ -87,7 +167,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Startmenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Startmenu/NinePatchRect"]
 margin_left = 32.0
 margin_top = 32.0
 margin_right = 352.0
@@ -96,7 +176,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Start" type="Label" parent="Startmenu/VBoxContainer"]
+[node name="Start" type="Label" parent="Startmenu/NinePatchRect/VBoxContainer"]
 margin_right = 320.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 0, 32 )
@@ -105,6 +185,33 @@ custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Start Game"
 align = 1
+script = SubResource( 5 )
+
+[node name="Scores" type="Label" parent="Startmenu/NinePatchRect/VBoxContainer"]
+margin_right = 320.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 32 )
+mouse_filter = 1
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Highscores"
+align = 1
+script = SubResource( 1 )
+
+[node name="Quit" type="Label" parent="Startmenu/NinePatchRect/VBoxContainer"]
+margin_top = 49.0
+margin_right = 320.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 0, 32 )
+mouse_filter = 1
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Quit Game"
+align = 1
+script = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Startmenu/NinePatchRect"]
+anims/Show = SubResource( 3 )
 
 [node name="titletext" type="Sprite" parent="."]
 position = Vector2( 640, 320 )
@@ -115,7 +222,13 @@ stream = ExtResource( 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../startScreen/pressAnyButton")
-anims/PressAnyButtonAnim = SubResource( 1 )
-[connection signal="gui_input" from="Startmenu/VBoxContainer/Start" to="." method="_on_Start_gui_input"]
-[connection signal="mouse_entered" from="Startmenu/VBoxContainer/Start" to="." method="mouseOverButton" binds= [ true, "Start" ]]
-[connection signal="mouse_exited" from="Startmenu/VBoxContainer/Start" to="." method="mouseOverButton" binds= [ false, "Start" ]]
+anims/PressAnyButtonAnim = SubResource( 4 )
+[connection signal="gui_input" from="Startmenu/NinePatchRect/VBoxContainer/Start" to="Startmenu/NinePatchRect/VBoxContainer/Start" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Startmenu/NinePatchRect/VBoxContainer/Start" to="." method="mouseOverButton" binds= [ true, "Start" ]]
+[connection signal="mouse_exited" from="Startmenu/NinePatchRect/VBoxContainer/Start" to="." method="mouseOverButton" binds= [ false, "Start" ]]
+[connection signal="gui_input" from="Startmenu/NinePatchRect/VBoxContainer/Scores" to="Startmenu/NinePatchRect/VBoxContainer/Scores" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Startmenu/NinePatchRect/VBoxContainer/Scores" to="." method="mouseOverButton" binds= [ true, "Scores" ]]
+[connection signal="mouse_exited" from="Startmenu/NinePatchRect/VBoxContainer/Scores" to="." method="mouseOverButton" binds= [ false, "Scores" ]]
+[connection signal="gui_input" from="Startmenu/NinePatchRect/VBoxContainer/Quit" to="Startmenu/NinePatchRect/VBoxContainer/Quit" method="_on_gui_input"]
+[connection signal="mouse_entered" from="Startmenu/NinePatchRect/VBoxContainer/Quit" to="." method="mouseOverButton" binds= [ true, "Quit" ]]
+[connection signal="mouse_exited" from="Startmenu/NinePatchRect/VBoxContainer/Quit" to="." method="mouseOverButton" binds= [ false, "Quit" ]]

@@ -20,6 +20,10 @@ config/description="Dies ist ein Übungsprojekt. Ich versuche die Dinge für mic
 run/main_scene="res://Screens/startScreen.tscn"
 config/icon="res://icon2.png"
 
+[autoload]
+
+Global="*res://Scripts/Global.gd"
+
 [display]
 
 window/size/width=1280

@@ -1,0 +1,171 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Fonts/Conviction_42_bold.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/Conviction_42.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Backgrounds/startScreen.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/HighscoreScreen.gd" type="Script" id=4]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Button
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_backButton_pressed():
+	get_tree().change_scene(\"res://Screens/startScreen.tscn\")
+"
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="startScreen" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0.690196, 1 )
+position = Vector2( 640, 360 )
+texture = ExtResource( 3 )
+
+[node name="Control" type="Control" parent="."]
+margin_left = 390.0
+margin_right = 434.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Places" type="RichTextLabel" parent="Control"]
+margin_left = -38.0
+margin_top = 144.0
+margin_right = 10.0
+margin_bottom = 672.0
+custom_fonts/mono_font = ExtResource( 2 )
+custom_fonts/bold_italics_font = ExtResource( 2 )
+custom_fonts/italics_font = ExtResource( 2 )
+custom_fonts/bold_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 2 )
+custom_colors/default_color = Color( 0, 0.0708985, 0.472656, 1 )
+custom_constants/line_separation = 8
+text = " 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+ 10"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Names" type="RichTextLabel" parent="Control"]
+margin_left = 18.0
+margin_top = 144.0
+margin_right = 834.0
+margin_bottom = 680.0
+custom_fonts/mono_font = ExtResource( 2 )
+custom_fonts/bold_italics_font = ExtResource( 2 )
+custom_fonts/italics_font = ExtResource( 2 )
+custom_fonts/bold_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 2 )
+custom_constants/line_separation = 8
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scores" type="RichTextLabel" parent="Control"]
+anchor_right = 0.498
+margin_left = 346.0
+margin_top = 144.0
+margin_right = 578.0
+margin_bottom = 680.0
+custom_fonts/mono_font = ExtResource( 2 )
+custom_fonts/bold_italics_font = ExtResource( 2 )
+custom_fonts/italics_font = ExtResource( 2 )
+custom_fonts/bold_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 2 )
+custom_constants/line_separation = 8
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = 162.0
+margin_top = 56.0
+margin_right = 342.0
+margin_bottom = 101.0
+custom_fonts/font = ExtResource( 1 )
+text = "HIGHSCORES"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="backButton" type="Button" parent="Control"]
+margin_left = -317.682
+margin_top = 53.0
+margin_right = -125.682
+margin_bottom = 104.0
+custom_fonts/font = ExtResource( 2 )
+text = "Back"
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopupDialog" type="PopupDialog" parent="Control"]
+visible = true
+anchor_left = 0.3
+anchor_right = 0.3
+margin_left = 71.992
+margin_top = 216.0
+margin_right = 433.992
+margin_bottom = 421.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control/PopupDialog"]
+margin_left = 32.0
+margin_top = 16.0
+margin_right = 192.0
+margin_bottom = 61.0
+custom_fonts/font = ExtResource( 2 )
+text = "Input name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="Control/PopupDialog"]
+self_modulate = Color( 0.384314, 0.384314, 0.384314, 1 )
+margin_left = 24.0
+margin_top = 80.0
+margin_right = 336.0
+margin_bottom = 120.0
+
+[node name="Button" type="Button" parent="Control/PopupDialog"]
+margin_left = 24.0
+margin_top = 136.0
+margin_right = 336.0
+margin_bottom = 187.0
+custom_fonts/font = ExtResource( 2 )
+text = "OK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Control/backButton" to="Control/backButton" method="_on_backButton_pressed"]
+[connection signal="pressed" from="Control/PopupDialog/Button" to="." method="_on_Button_pressed"]

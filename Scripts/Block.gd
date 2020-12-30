@@ -27,7 +27,7 @@ func _process(delta):
 	if(animPlayer.is_playing() && !propagated):
 		var length = animPlayer.current_animation_length
 		var dlt = animPlayer.current_animation_position / length
-		if dlt >= 0.3:
+		if dlt >= 0.2:
 			if next != null:
 				next.playAnim()
 				propagated = true

@@ -88,7 +88,6 @@ func lowerUpperField(start, amount):
 	for x in 10:
 		setCell(x, 0, BLOCKS.NONE)
 		
-# returns number of removed lines if lines were completed
 func putBlock(block):
 	var type = block.getCurrType()
 	var blockArray = BLOCKS.getBlock(type)[block.getCurrRotation()]

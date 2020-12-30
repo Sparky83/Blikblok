@@ -1,17 +1,14 @@
 extends Node
 
+enum {BLINK, MENU, LOAD, NEW}
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var state = 0
+var state = BLINK
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AudioStreamPlayer.play()
 	$AnimationPlayer.play("PressAnyButtonAnim")
-	pass # Replace with function body.
-
+	Global.readScores()
 	
 func startGame():
 	if !get_tree().change_scene("res://Screens/GameScreen.tscn"):
@@ -21,8 +18,11 @@ func mouseOverButton(entered, button):
 	var elem = null
 	match(button):
 		"Start":
-			elem = get_node("Startmenu/VBoxContainer/Start")
-			
+			elem = get_node("Startmenu/NinePatchRect/VBoxContainer/Start")
+		"Quit":
+			elem = get_node("Startmenu/NinePatchRect/VBoxContainer/Quit")
+		"Scores":
+			elem = get_node("Startmenu/NinePatchRect/VBoxContainer/Scores")
 	var color
 	if entered:
 		color = Color(0.234467, 0.207882, 0.591309)
@@ -30,15 +30,17 @@ func mouseOverButton(entered, button):
 		color = Color(1,1,1,1)
 	elem.set("custom_colors/font_color", color)
 
-func _on_Start_gui_input(event):
-	if event.get_class() == "InputEventMouseButton":
-		if(event.button_index == 1 && !event.pressed):
-			get_tree().change_scene("res://Screens/GameScreen.tscn")
-	pass # Replace with function body.
-
 func _unhandled_key_input(event):
-	if(state == 0):
+	if(state == BLINK):
 		$AnimationPlayer.queue_free()
 		$startScreen/pressAnyButton.queue_free()
 		state = 1
-		get_tree().change_scene("res://Screens/GameScreen.tscn")
+		$Startmenu/NinePatchRect/AnimationPlayer.play("Show")
+		$Startmenu.visible = true
+		var tween = Tween.new()
+		$titletext.add_child(tween)
+		tween.interpolate_property($titletext, "position",
+				Vector2(640,320), Vector2(640, 175), 1,
+				Tween.TRANS_ELASTIC, Tween.EASE_OUT)
+		tween.start()
+		

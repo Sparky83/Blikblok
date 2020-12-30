@@ -5,6 +5,7 @@ const SPEEDS = [2000, 1500, 1200, 1000, 800, 600, 400, 300, 200, 100]
 const BLOCKS = preload("Blocks.gd")
 const FIELD = preload("Field.gd")
 const DELAYER = preload("InputDelayer.gd")
+const KEYVALUE = preload("KeyValue.gd")
 
 var field
 var block
@@ -114,7 +115,7 @@ func moveBlockDown():
 			samePositionCounter += 1
 			if(samePositionCounter >= 4):
 				samePositionCounter = 0
-				get_tree().change_scene("res://Screens/StartScreen.tscn")
+				gameOver()
 		lastPosition = block.getPosition()
 	else:
 		samePositionCounter = 0
@@ -174,6 +175,10 @@ func showPreviewBlock():
 				if(type != 0):
 					blockNodes[index].position = Vector2(x*32,y*32)
 					index += 1
+
+func gameOver():
+	Global.newScore = scoreNode.score
+	get_tree().change_scene("res://Screens/HighscoreScreen.tscn")
 
 func initBlockTypes():
 	blockTypes = [self.get_node("BlockTypes/Type1")]
