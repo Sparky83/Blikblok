@@ -19,6 +19,10 @@ func readScores():
 		scoresRead = true
 		scores.clear()
 		var file = File.new()
+		
+		if !file.file_exists(saveFilePath):
+			file.open(saveFilePath, File.WRITE)
+			
 		file.open(saveFilePath, File.READ)
 		while(!file.eof_reached()):
 			var entry = KEYVALUE.new()

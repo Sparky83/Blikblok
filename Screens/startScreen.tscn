@@ -8,7 +8,7 @@
 [ext_resource path="res://Sprites/pressAnyButton.png" type="Texture" id=6]
 [ext_resource path="res://Music/A Journey Awaits.ogg" type="AudioStream" id=7]
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Label
 
 
@@ -23,7 +23,7 @@ func _on_gui_input(event):
 	pass # Replace with function body. 
 "
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id=2]
 script/source = "extends Label
 
 
@@ -38,7 +38,7 @@ func _on_gui_input(event):
 	pass # Replace with function body. 
 "
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=3]
 script/source = "extends Label
 
 
@@ -59,8 +59,7 @@ func _on_gui_input(event):
 	pass # Replace with function body. 
 "
 
-[sub_resource type="Animation" id=3]
-resource_name = "Show"
+[sub_resource type="Animation" id=4]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_position")
@@ -87,7 +86,7 @@ tracks/1/keys = {
 "values": [ Vector2( 384, 20 ), Vector2( 384, 226 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 2.0
 loop = true
 tracks/0/type = "bezier"
@@ -185,7 +184,7 @@ custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Start Game"
 align = 1
-script = SubResource( 5 )
+script = SubResource( 1 )
 
 [node name="Scores" type="Label" parent="Startmenu/NinePatchRect/VBoxContainer"]
 margin_right = 320.0
@@ -196,7 +195,7 @@ custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Highscores"
 align = 1
-script = SubResource( 1 )
+script = SubResource( 2 )
 
 [node name="Quit" type="Label" parent="Startmenu/NinePatchRect/VBoxContainer"]
 margin_top = 49.0
@@ -208,10 +207,10 @@ custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Quit Game"
 align = 1
-script = SubResource( 2 )
+script = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Startmenu/NinePatchRect"]
-anims/Show = SubResource( 3 )
+anims/Show = SubResource( 4 )
 
 [node name="titletext" type="Sprite" parent="."]
 position = Vector2( 640, 320 )
@@ -222,7 +221,7 @@ stream = ExtResource( 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../startScreen/pressAnyButton")
-anims/PressAnyButtonAnim = SubResource( 4 )
+anims/PressAnyButtonAnim = SubResource( 5 )
 [connection signal="gui_input" from="Startmenu/NinePatchRect/VBoxContainer/Start" to="Startmenu/NinePatchRect/VBoxContainer/Start" method="_on_gui_input"]
 [connection signal="mouse_entered" from="Startmenu/NinePatchRect/VBoxContainer/Start" to="." method="mouseOverButton" binds= [ true, "Start" ]]
 [connection signal="mouse_exited" from="Startmenu/NinePatchRect/VBoxContainer/Start" to="." method="mouseOverButton" binds= [ false, "Start" ]]
